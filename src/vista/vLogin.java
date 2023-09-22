@@ -34,39 +34,39 @@ public class vLogin extends JFrame {
 	public vLogin() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 668, 404);
+		setBounds(100, 100, 865, 561);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		lblTitulo.setFont(new Font("Source Sans Pro SemiBold", Font.PLAIN, 40));
-		lblTitulo.setBounds(172, 61, 314, 51);
+		lblTitulo.setBounds(268, 125, 314, 51);
 		contentPane.add(lblTitulo);
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setFont(new Font("Source Sans Pro SemiBold", Font.BOLD | Font.ITALIC, 22));
-		lblUsuario.setBounds(213, 135, 98, 39);
+		lblUsuario.setBounds(309, 199, 98, 39);
 		contentPane.add(lblUsuario);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:\r\n");
 		lblContrasea.setFont(new Font("Source Sans Pro SemiBold", Font.BOLD | Font.ITALIC, 22));
-		lblContrasea.setBounds(176, 185, 122, 39);
+		lblContrasea.setBounds(272, 249, 122, 39);
 		contentPane.add(lblContrasea);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(311, 145, 130, 23);
+		txtUsuario.setBounds(407, 209, 130, 23);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
 		txtContraseña = new JTextField();
 		txtContraseña.setColumns(10);
-		txtContraseña.setBounds(311, 195, 130, 23);
+		txtContraseña.setBounds(407, 259, 130, 23);
 		contentPane.add(txtContraseña);
 		
 		JButton btnIngresar = new JButton("INGRESAR");
 		btnIngresar.setFont(new Font("Source Sans Pro SemiBold", Font.BOLD, 15));
-		btnIngresar.setBounds(274, 250, 122, 31);
+		btnIngresar.setBounds(370, 314, 122, 31);
 		contentPane.add(btnIngresar);
 		setLocationRelativeTo(null);
 	}

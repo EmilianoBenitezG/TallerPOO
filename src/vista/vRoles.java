@@ -17,17 +17,21 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import modelo.Roles;
 import dao.daoRoles;
+import javax.swing.JSeparator;
+import java.awt.Font;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class vRoles extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JTextField txtContraseña;
-	private JTextField txtNivelAcceso;
 	DefaultTableModel modelo = new DefaultTableModel();
 	daoRoles dao = new daoRoles();
 	ArrayList<Roles> lista;
 	private JTable tblRoles;
+	private JComboBox cbxNivelAcceso;
 
 	/**
 	 * Launch the application.
@@ -49,8 +53,9 @@ public class vRoles extends JFrame {
 	 * Create the frame.
 	 */
 	public vRoles() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 668, 404);
+		setBounds(100, 100, 853, 471);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -58,31 +63,35 @@ public class vRoles extends JFrame {
 		contentPane.setLayout(null);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(117, 20, 86, 20);
+		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtUsuario.setBounds(144, 121, 156, 28);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Usuario");
-		lblNewLabel.setBounds(61, 23, 46, 14);
-		contentPane.add(lblNewLabel);
+		JLabel lblUsuario = new JLabel("Usuario:");
+		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblUsuario.setBounds(72, 127, 71, 17);
+		contentPane.add(lblUsuario);
 		
-		JLabel lblNewLabel_1 = new JLabel("Contrase\u00F1a");
-		lblNewLabel_1.setBounds(232, 23, 56, 14);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblContraseña = new JLabel("Contrase\u00F1a:");
+		lblContraseña.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblContraseña.setBounds(43, 164, 103, 14);
+		contentPane.add(lblContraseña);
 		
 		txtContraseña = new JTextField();
 		txtContraseña.setColumns(10);
-		txtContraseña.setBounds(300, 20, 86, 20);
+		txtContraseña.setBounds(144, 160, 156, 28);
 		contentPane.add(txtContraseña);
 		
-		JButton btnNewButton = new JButton("agregar");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Roles roles = new Roles();
 					roles.setUsuario(txtUsuario.getText());
 					roles.setContraseña(txtContraseña.getText());
-					roles.setNivelAcceso(txtNivelAcceso.getText());
+					roles.setNivelAcceso(cbxNivelAcceso.getSelectedItem().toString());
 					daoRoles daoroles = new daoRoles();
 					if(daoroles.insertarRoles(roles)) {
 						actualizarTabla();
@@ -95,11 +104,11 @@ public class vRoles extends JFrame {
 				}
 			}
 		});
-		btnNewButton.setBounds(425, 19, 89, 23);
-		contentPane.add(btnNewButton);
+		btnAgregar.setBounds(94, 238, 125, 36);
+		contentPane.add(btnAgregar);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(61, 97, 558, 257);
+		scrollPane.setBounds(310, 109, 518, 300);
 		contentPane.add(scrollPane);
 		
 		tblRoles = new JTable();
@@ -122,14 +131,37 @@ public class vRoles extends JFrame {
 		modelo.addColumn("Contraseña");
 		modelo.addColumn("Nivel de Acceso");
 		actualizarTabla();
-		txtNivelAcceso = new JTextField();
-		txtNivelAcceso.setColumns(10);
-		txtNivelAcceso.setBounds(242, 51, 86, 20);
-		contentPane.add(txtNivelAcceso);
 		setLocationRelativeTo(null);
-		JLabel lblNewLabel_1_1 = new JLabel("Nivel de Acceso:\r\n");
-		lblNewLabel_1_1.setBounds(149, 54, 95, 14);
-		contentPane.add(lblNewLabel_1_1);
+		JLabel lblNivelAcceso = new JLabel("Nivel de Acceso:\r\n");
+		lblNivelAcceso.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNivelAcceso.setBounds(10, 206, 134, 14);
+		contentPane.add(lblNivelAcceso);
+		
+		cbxNivelAcceso = new JComboBox();
+		cbxNivelAcceso.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		cbxNivelAcceso.setModel(new DefaultComboBoxModel(new String[] {"Administrador", "Medico", "Funcionario"}));
+		cbxNivelAcceso.setBounds(144, 199, 156, 28);
+		contentPane.add(cbxNivelAcceso);
+		
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnModificar.setBounds(94, 285, 125, 36);
+		contentPane.add(btnModificar);
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnEliminar.setBounds(94, 332, 125, 36);
+		contentPane.add(btnEliminar);
+		
+		JLabel lblRoles = new JLabel("Roles");
+		lblRoles.setFont(new Font("Source Sans Pro SemiBold", Font.PLAIN, 40));
+		lblRoles.setBounds(362, 29, 103, 51);
+		contentPane.add(lblRoles);
+		
+		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnLimpiar.setBounds(94, 379, 125, 36);
+		contentPane.add(btnLimpiar);
 	}
 	
 	public void actualizarTabla() {

@@ -20,9 +20,9 @@ public class daoRoles {
 		boolean salida = true;
 		try {
 			ps=cx.conectar().prepareStatement("INSERT INTO Roles VALUES (null,?,?,?)");
-			ps.setString(1, roles.getUsuario());
-			ps.setString(2, roles.getContraseña());
-			ps.setString(3, roles.getNivelAcceso());
+			ps.setString(1, roles.getUsuario().toUpperCase());
+			ps.setString(2, roles.getContraseña().toUpperCase());
+			ps.setString(3, roles.getNivelAcceso().toUpperCase());
 			ps.executeUpdate();
 			cx.desconectar();
 		} catch (SQLException e) {
