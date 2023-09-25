@@ -13,6 +13,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import modelo.Roles;
@@ -32,7 +34,8 @@ public class vRoles extends JFrame {
 	ArrayList<Roles> lista;
 	private JTable tblRoles;
 	private JComboBox cbxNivelAcceso;
-
+	int fila=-1;
+	Roles roles = new Roles();
 	/**
 	 * Launch the application.
 	 */
@@ -63,7 +66,7 @@ public class vRoles extends JFrame {
 		contentPane.setLayout(null);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtUsuario.setBounds(144, 121, 156, 28);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
@@ -79,6 +82,7 @@ public class vRoles extends JFrame {
 		contentPane.add(lblContraseña);
 		
 		txtContraseña = new JTextField();
+		txtContraseña.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtContraseña.setColumns(10);
 		txtContraseña.setBounds(144, 160, 156, 28);
 		contentPane.add(txtContraseña);
@@ -112,6 +116,26 @@ public class vRoles extends JFrame {
 		contentPane.add(scrollPane);
 		
 		tblRoles = new JTable();
+		
+		tblRoles.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int item = 0;
+				fila=tblRoles.getSelectedRow();
+				roles=lista.get(fila);
+				//lblId.setText
+				txtUsuario.setText(roles.getUsuario());
+				txtContraseña.setText(roles.getContraseña());
+				if (roles.getNivelAcceso().equals("FUNCIONARIO")) {
+					item = 1;
+				}
+				cbxNivelAcceso.setSelectedIndex(item);
+			}
+			
+		});
+		
+		
 		tblRoles.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null},
@@ -139,7 +163,7 @@ public class vRoles extends JFrame {
 		
 		cbxNivelAcceso = new JComboBox();
 		cbxNivelAcceso.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		cbxNivelAcceso.setModel(new DefaultComboBoxModel(new String[] {"Administrador", "Medico", "Funcionario"}));
+		cbxNivelAcceso.setModel(new DefaultComboBoxModel(new String[] {"Medico", "Funcionario"}));
 		cbxNivelAcceso.setBounds(144, 199, 156, 28);
 		contentPane.add(cbxNivelAcceso);
 		
@@ -159,9 +183,25 @@ public class vRoles extends JFrame {
 		contentPane.add(lblRoles);
 		
 		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpiarCampos();
+			}
+		});
 		btnLimpiar.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnLimpiar.setBounds(94, 379, 125, 36);
 		contentPane.add(btnLimpiar);
+		
+		JLabel lblId = new JLabel("ID");
+		lblId.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblId.setBounds(95, 88, 28, 17);
+		lblId.setVisible(false);
+		contentPane.add(lblId);
+	}
+	
+	private void limpiarCampos() {
+		txtUsuario.setText("");
+		txtContraseña.setText("");
 	}
 	
 	public void actualizarTabla() {
